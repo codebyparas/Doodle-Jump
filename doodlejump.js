@@ -81,7 +81,7 @@ function update(){
     // Platforms
     for(let i = 0; i < platformArray.length; i++){
         let platform = platformArray[i];
-        if(detectCollision(doodler, platform)){
+        if(detectCollision(doodler, platform) && velocityY >= 0){
             velocityY = initialVelocityY;  // Jump Off the Platform
         }
         context.drawImage(platform.img, platform.x, platform.y, platform.width, platform.height);
