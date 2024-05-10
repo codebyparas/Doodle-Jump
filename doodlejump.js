@@ -81,6 +81,9 @@ function update(){
     // Platforms
     for(let i = 0; i < platformArray.length; i++){
         let platform = platformArray[i];
+        if(detectCollision(doodler, platform)){
+            velocityY = initialVelocityY;  // Jump Off the Platform
+        }
         context.drawImage(platform.img, platform.x, platform.y, platform.width, platform.height);
     }
 }
@@ -118,4 +121,11 @@ function placePlatforms(){
     }
 
     platformArray.push(platform);
+}
+
+function detectCollision(a, b){
+    return  a.x < b.x + b.width &&  // a's Top Left Corner doesn't reach b's Top Right Corner
+            a.x + a.width > b.x &&  // a's Top Right Corner passes b's Top Left Corner
+            a.y < b.y + b.height &&  // a's Top Left Corner doesn't reach b's Bottom Left Corner
+            a.y + a.height > b.y;  // a's Bottom Left Corner passes b's Top Left Corner
 }
