@@ -14,6 +14,9 @@ let doodlerLeftImg;
 
 // Physics
 let velocityX = 0;
+let velocityY = 0;  // Doodler Jump Speed
+let initialVelocityY = -8;  // Starting Velocity Y
+let gravity = 0.4;
 
 // Platforms
 let platformArray = [];
@@ -53,6 +56,7 @@ window.onload = function(){
     platformImg = new Image;
     platformImg.src = "./platform.png";
 
+    velocityY = initialVelocityY;
     placePlatforms();
     requestAnimationFrame(update);
     document.addEventListener("keydown", moveDoodler);
@@ -70,6 +74,9 @@ function update(){
         doodler.x = boardWidth;
     }
     context.drawImage(doodler.img, doodler.x, doodler.y, doodler.width, doodler.height);
+
+    velocityY += gravity;
+    doodler.y += velocityY;
 
     // Platforms
     for(let i = 0; i < platformArray.length; i++){
