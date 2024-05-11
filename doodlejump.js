@@ -12,6 +12,14 @@ let doodlerY = boardHeight*7/8 - doodlerHeight;
 let doodlerRightImg;
 let doodlerLeftImg;
 
+let doodler = {
+    img : null,
+    x : doodlerX,
+    y : doodlerY,
+    width : doodlerWidth,
+    height : doodlerHeight
+}
+
 // Physics
 let velocityX = 0;
 let velocityY = 0;  // Doodler Jump Speed
@@ -24,13 +32,7 @@ let platformWidth = 60;
 let platformHeight = 18;
 let platformImg;
 
-let doodler = {
-    img : null,
-    x : doodlerX,
-    y : doodlerY,
-    width : doodlerWidth,
-    height : doodlerHeight
-}
+let score = 0;
 
 window.onload = function(){
     board = document.getElementById("board");
@@ -95,6 +97,12 @@ function update(){
         platformArray.shift();  // Removes First Element from the Array
         newPlatform();  // Replace with New Platform on Top
     }
+
+    // Score
+    updateScore();
+    context.fillStyle = "black";
+    context.font = "16px sans-serif";
+    context.fillText(score, 5, 20);
 }
 
 function moveDoodler(e){
@@ -163,4 +171,9 @@ function detectCollision(a, b){
             a.x + a.width > b.x &&  // a's Top Right Corner passes b's Top Left Corner
             a.y < b.y + b.height &&  // a's Top Left Corner doesn't reach b's Bottom Left Corner
             a.y + a.height > b.y;  // a's Bottom Left Corner passes b's Top Left Corner
+}
+
+function updateScore(){
+    let points = Math.floor(50 * Math.random());  // (0-1) * 50 --> (0-50)
+    score +=points;
 }
