@@ -89,6 +89,12 @@ function update(){
         }
         context.drawImage(platform.img, platform.x, platform.y, platform.width, platform.height);
     }
+
+    // Clear Platforms & Add New Platforms
+    while(platformArray.length > 0 && platformArray[0].y >= boardHeight){
+        platformArray.shift();  // Removes First Element from the Array
+        newPlatform();  // Replace with New Platform on Top
+    }
 }
 
 function moveDoodler(e){
@@ -137,6 +143,19 @@ function placePlatforms(){
     
         platformArray.push(platform);
     }
+}
+
+function newPlatform(){
+    let randomX = Math.floor(Math.random() * boardWidth*3/4);  // (0-1) * boardWidth*3/4
+    let platform = {
+        img : platformImg,
+        x : randomX,
+        y : -platformHeight,
+        width : platformWidth,
+        height : platformHeight
+    }
+    
+    platformArray.push(platform);
 }
 
 function detectCollision(a, b){
