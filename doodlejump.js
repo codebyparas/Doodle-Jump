@@ -33,6 +33,7 @@ let platformHeight = 18;
 let platformImg;
 
 let score = 0;
+let maxScore = 0;
 
 window.onload = function(){
     board = document.getElementById("board");
@@ -175,5 +176,12 @@ function detectCollision(a, b){
 
 function updateScore(){
     let points = Math.floor(50 * Math.random());  // (0-1) * 50 --> (0-50)
-    score +=points;
+    if(velocityY < 0){
+        maxScore += points;
+        if(score < maxScore){
+            score = maxScore;
+        }
+    }else if(velocityY >= 0){
+        maxScore -= points;
+    }
 }
