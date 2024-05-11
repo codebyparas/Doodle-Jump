@@ -81,6 +81,9 @@ function update(){
     // Platforms
     for(let i = 0; i < platformArray.length; i++){
         let platform = platformArray[i];
+        if(velocityY < 0 && doodler.y < boardHeight*3/4){
+            platform.y -= initialVelocityY;  // Slide Platform Down
+        }
         if(detectCollision(doodler, platform) && velocityY >= 0){
             velocityY = initialVelocityY;  // Jump Off the Platform
         }
