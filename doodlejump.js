@@ -34,6 +34,7 @@ let platformImg;
 
 let score = 0;
 let maxScore = 0;
+let gameOver = false;
 
 window.onload = function(){
     board = document.getElementById("board");
@@ -67,6 +68,9 @@ window.onload = function(){
 
 function update(){
     requestAnimationFrame(update);
+    if(gameOver){
+        return;
+    }
     context.clearRect(0, 0, board.width, board.height);
 
     // Doodler
@@ -80,6 +84,9 @@ function update(){
 
     velocityY += gravity;
     doodler.y += velocityY;
+    if(doodler.y > board.height){
+        gameOver = true;
+    }
 
     // Platforms
     for(let i = 0; i < platformArray.length; i++){
@@ -104,6 +111,10 @@ function update(){
     context.fillStyle = "black";
     context.font = "16px sans-serif";
     context.fillText(score, 5, 20);
+
+    if(gameOver){
+        context.fillText("Game Over", boardWidth/7, boardHeight*7/8);
+    }
 }
 
 function moveDoodler(e){
